@@ -62,13 +62,16 @@ while True:
         oled_add_text(0,0,'Automatic')
         reading_photoresistor=pin2.read_analog()//114 #floor division to make into int
         reading_motion=pin1.read_digital()
+        reading_rain=pin3.read_analog()
         brightness=9-reading_photoresistor
         if reading_motion==0 and brightness > 5: #no motion
             brightness=5 #cap brightness at 5 if there is no motion
+        if reading_rain>900:
+            brightness=9 #max brightness when raining.
     else: #mode=manual
         oled_add_text(0,1,'Manual')
         reading_potentiometer=pin0.read_analog()
         brightness=reading_potentiometer//114 #floor division to make into int
-    brightness=str(brightness)
+    brightness=str(brightness)#str to use in control()/join func
     control(brightness)
         
