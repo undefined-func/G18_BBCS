@@ -72,9 +72,4 @@ while True:
     brightness=str(brightness)
     control(brightness)
         
-       
-        
-
-            
-        
-        
+   
