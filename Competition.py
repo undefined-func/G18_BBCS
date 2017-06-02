@@ -55,9 +55,10 @@ def control(x): #user-defined function to set the brightness of LED display ligh
    
 mode=0 
 while True:
+    if button_a.is_pressed():
+        oled_clear_screen()
     mode +=button_a.get_presses() # odd = manual, even = auto
     if mode%2==0: #mode=auto
-        oled_clear_screen()
         oled_add_text(0,0,'Automatic')
         reading_photoresistor=pin2.read_analog()//114 #floor division to make into int
         reading_motion=pin1.read_digital()
@@ -65,11 +66,9 @@ while True:
         if reading_motion==0 and brightness > 5: #no motion
             brightness=5 #cap brightness at 5 if there is no motion
     else: #mode=manual
-        oled_clear_screen()
         oled_add_text(0,1,'Manual')
         reading_potentiometer=pin0.read_analog()
         brightness=reading_potentiometer//114 #floor division to make into int
     brightness=str(brightness)
     control(brightness)
         
-   
